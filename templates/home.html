@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	<title>Integrative Complexity</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+<script>
+function button_ic4()
+{
+document.getElementById("tocode").value='We shall the better be able to do this if we remember that the things we have in common are much greater than the things that divide us. The political traditions of the United States and of Canada are from the same roots. Each of us has tried to build a society that gives first place to the individual man, his need, his hopes, his rights, his responsibilities. Our methods are in some ways different and our efforts on both sides less than perfect but on balance we can both claim some success in our dedication to the free society. We stand together also in our common dedication to the ways of peace and in our common determination to cooperate and prevail in the cause of freedom and fair dealing between nations. We stand together in the atlantic alliance which has proved itself to be the shield of a free world and in a United Nations which is groping toward a world brotherhood which in our nuclear jet propelled age has become an urgent necessity for survival itself.';
+}
+function button_ic1()
+{
+document.getElementById("tocode").value='I always liked roller coaster rides. The thrill of flying around a track with your body being thrown whichever way gravity and momentum dictated always got my blood pumping.';
+}
+function button_ic6()
+{
+document.getElementById("tocode").value="I grew up in Canada in a medium sized white middle class family as such part of what makes me who I am are the values and beliefs I was taught and have subsequently questioned of a western patriarchical society I very much understand myself to be part of a larger scheme of things partly a product of my culture and of my upbringing however I also see myself as an individual a product of my own unique experiences and views so I guess what makes me me is the culture I come from the family I was raised in the time period I'm living in and the other individuals and experiences i've encountered during my life.";
+}
+</script>
+
+</head>
+
+<div class="jumbotron">
+<div class="container">
+  <h1 class="display-5">Integrative Complexity</h1>
+  <p>How able are you to <b>differentiate</b> multiple perspectives on an issue?<br>
+  And can you <b>integrate</b> those perspectives into a cohesive "big picture" view of that issue?<br>
+  Write about one of the prompts below to analyse your own IC.</p>
+
+	<button type="button" class="btn btn-info">Climate change</button>
+	<button type="button" class="btn btn-info">Team sports</button>
+	<button type="button" class="btn btn-info">Young and old people</button>
+	<button type="button" class="btn btn-info">Tourism</button>
+	<button type="button" class="btn btn-info">Charity work</button>
+	<br>
+	<p><br>Or look at these prepared examples of IC levels.</p>
+
+	<button type="button" class="btn btn-danger" onclick="button_ic1()">No IC</button>
+	<button type="button" class="btn btn-warning" onclick="button_ic4()">Medium IC</button>
+	<button type="button" class="btn btn-success" onclick="button_ic6()">High IC</button>
+
+	<p>
+	  {% if prediction == 1 %}
+
+      	<div style="background-color:#d73027;padding:5px">
+      	<b>IC score: {{ prediction }}</b> This text has no evidence of differentiation or integration.
+      	</div>
+
+  	  {% endif %}
+
+	  {% if prediction == 2 %}
+
+      	<div style="background-color:#fc8d59;padding:5px">
+      	<b>IC score: {{ prediction }}</b> This text has some evidence of differentiation, but no integration.
+      	</div>
+
+  	  {% endif %}
+
+	  {% if prediction == 3 %}
+
+      	<div style="background-color:#fee08b;padding:5px">
+      	<b>IC score: {{ prediction }}</b> This text has good evidence of differentiation, but no integration.
+      	</div>
+
+  	  {% endif %}
+
+	  {% if prediction == 4 %}
+
+      	<div style="background-color:#ffffbf;padding:5px">
+      	<b>IC score: {{ prediction }}</b> This text has good evidence of differentiation, and some integration.
+      	</div>
+
+  	  {% endif %}
+
+	  {% if prediction == 5 %}
+
+      	<div style="background-color:#d9ef8b;padding:5px">
+      	<b>IC score: {{ prediction }}</b> This text has good evidence of differentiation and integration.
+      	</div>
+
+  	  {% endif %}
+
+ 	  {% if prediction == 6 %}
+
+      	<div style="background-color:#91cf60;padding:5px">
+      	<b>IC score: {{ prediction }}</b> This text has good evidence of differentiation and integration.
+      	</div>
+
+  	  {% endif %}
+
+  	  {% if prediction == 7 %}
+
+      	<div style="background-color:#1a9850;padding:5px">
+      	<b>IC score: {{ prediction }}</b> This text has good evidence of differentiation and integration.
+      	</div>
+
+  	  {% endif %}
+
+  	<p>
+
+	<p>
+	<form action="{{ url_for('home') }}" method="POST">
+		<textarea class="form-control"
+				  placeholder="Enter the text you want to analyse for Integrative Complexity. &#10;You will be shown the probabilities of all seven IC bands, plus the features used to calculate them."
+				  id="tocode"
+				  rows="8"
+				  name="tocode" required="required">
+{% if ta_content %}{{ ta_content }}{% endif %}
+				  </textarea>
+				  <input class="btn btn-primary" type="submit" value="Analyse">
+	</form>
+	</p>
+		{% if data %}
+	<div style="padding:5px">The features of your text and how they contributed to the classification are shown below.</div>
+	{% endif %}
+</div>
+</div>
+
+{% if data %}
+{{ data|safe }}
+{% endif %}
+</html>
